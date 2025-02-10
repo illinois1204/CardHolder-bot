@@ -1,0 +1,13 @@
+{
+    "configurations": [
+        {
+            "name": "simple run",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "bot.main",
+            "env": {
+                "PYTHONPYCACHEPREFIX": "${workspaceFolder}/__pycache__"
+            }
+        }
+    ]
+}
