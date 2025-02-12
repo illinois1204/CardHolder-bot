@@ -1,7 +1,16 @@
 {
     "configurations": [
         {
-            "name": "simple run",
+            "name": "Dev run",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "pymon root.py",
+            "env": {
+                "PYTHONPYCACHEPREFIX": "${workspaceFolder}/__pycache__"
+            }
+        },
+        {
+            "name": "Standart run",
             "type": "debugpy",
             "request": "launch",
             "module": "bot.main",

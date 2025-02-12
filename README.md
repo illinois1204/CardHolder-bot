@@ -1,11 +1,32 @@
-python -B -m bot.main  
+# Install packages
+#### Dependencies:
+```sh
+pip install -r requirements.txt
+```
+#### Dev-Dependencies:
+```sh
+pip install -r requirements-dev.txt
+```
 
-another way: make `root.py` in root of project with
+
+# Launch bot
+#### Default launch using module start
+```sh
+python -m bot.main
 ```
-# flake8: noqa
-from bot import main
+```sh
+python -B -m bot.main
 ```
-and use:
-```
-pymon root.py
-```
+> flag `-B` is disable `__pychache__`
+
+#### Hot reloading launch
+1. Make file `root.py` in project's root directory
+2. Put with:
+    ```py
+    # flake8: noqa
+    from bot import main
+    ```
+3. Run with:
+    ```sh
+    pymon root.py
+    ```
