@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from ._index import backButton
+from .back import backButton
 
 marketBoard = [
     [InlineKeyboardButton(text="InterSpar", callback_data="interspar")],
@@ -12,4 +12,5 @@ marketBoard = [
 ]
 
 marketBoard.append(backButton)
+
 marketBoardMarkup = InlineKeyboardMarkup(inline_keyboard=marketBoard)

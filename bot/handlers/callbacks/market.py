@@ -2,17 +2,17 @@
 from aiogram import F, Router, types
 
 from bot.components.keyboard.category import categoryBoardMarkup
-from bot.components.keyboard.petrol import petrolBoardMarkup
+from bot.components.keyboard.market import marketBoardMarkup
 from common.constants.messages import BotMessages
 
 router = Router()
 
 
-@router.callback_query(F.data == "petrol")
+@router.callback_query(F.data == "markets")
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(
-        text="Выберите АЗС карту", reply_markup=petrolBoardMarkup
+        text="Выберите карту Супермаркета", reply_markup=marketBoardMarkup
     )
 
 

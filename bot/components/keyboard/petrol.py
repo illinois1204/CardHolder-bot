@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from ._index import backButton
+from .back import backButton
 
 petrolBoard = [
     [InlineKeyboardButton(text="Lukoil", callback_data="lukoil")],
@@ -10,4 +10,5 @@ petrolBoard = [
 ]
 
 petrolBoard.append(backButton)
+
 petrolBoardMarkup = InlineKeyboardMarkup(inline_keyboard=petrolBoard)
