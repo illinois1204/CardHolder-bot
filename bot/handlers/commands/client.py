@@ -2,7 +2,7 @@ from aiogram import F, Router, types
 from aiogram.filters import Command
 
 from bot.components.keyboard.category import categoryBoardMarkup
-from bot.components.keyboard.hotpad import HotPadNotes
+from common.enums.hotpad import HotPadNotes
 from common.constants.messages import BotMessages
 
 router = Router()

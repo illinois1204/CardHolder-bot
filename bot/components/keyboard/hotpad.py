@@ -1,8 +1,6 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
-HotPadNotes = dict(
-    category="Категории", allCarts="Список всех карт", addCard="Добавить карту"
-)
+from common.enums.hotpad import HotPadNotes
 
 hotpad = [[KeyboardButton(text=note)] for note in HotPadNotes.values()]
 

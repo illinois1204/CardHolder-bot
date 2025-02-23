@@ -1,16 +1,18 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from .back import backButton
+from common.enums.namespaces import CallBackNameSpace
+
+from ..buttons.back import backButton
 
 marketBoard = [
-    [InlineKeyboardButton(text="InterSpar", callback_data="interspar")],
-    [InlineKeyboardButton(text="Lenta", callback_data="lenta")],
-    [InlineKeyboardButton(text="Metro C&C", callback_data="metro")],
-    [InlineKeyboardButton(text="Lidl", callback_data="lidl")],
-    [InlineKeyboardButton(text="Auchan", callback_data="aucham")],
-    [InlineKeyboardButton(text="Kaufland", callback_data="kaufland")],
+    [InlineKeyboardButton(text="InterSpar", callback_data=f"{CallBackNameSpace.Market}_interspar")],
+    [InlineKeyboardButton(text="Lenta", callback_data=f"{CallBackNameSpace.Market}_lenta")],
+    [InlineKeyboardButton(text="Metro C&C", callback_data=f"{CallBackNameSpace.Market}_metro")],
+    [InlineKeyboardButton(text="Lidl", callback_data=f"{CallBackNameSpace.Market}_lidl")],
+    [InlineKeyboardButton(text="Auchan", callback_data=f"{CallBackNameSpace.Market}_aucham")],
+    [InlineKeyboardButton(text="Kaufland", callback_data=f"{CallBackNameSpace.Market}_kaufland")],
 ]
 
-marketBoard.append(backButton)
+marketBoard.append(backButton(CallBackNameSpace.Market))
 
 marketBoardMarkup = InlineKeyboardMarkup(inline_keyboard=marketBoard)

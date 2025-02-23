@@ -1,6 +1,8 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from .back import backButton
+from common.enums.namespaces import CallBackNameSpace
+
+from ..buttons.back import backButton
 
 petrolBoard = [
     [InlineKeyboardButton(text="Lukoil", callback_data="lukoil")],
@@ -9,6 +11,6 @@ petrolBoard = [
     [InlineKeyboardButton(text="Octan", callback_data="octan")],
 ]
 
-petrolBoard.append(backButton)
+petrolBoard.append(backButton(CallBackNameSpace.Petrol))
 
 petrolBoardMarkup = InlineKeyboardMarkup(inline_keyboard=petrolBoard)

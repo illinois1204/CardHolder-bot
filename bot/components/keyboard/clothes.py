@@ -1,6 +1,8 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from .back import backButton
+from common.enums.namespaces import CallBackNameSpace
+
+from ..buttons.back import backButton
 
 clothesBoard = [
     [InlineKeyboardButton(text="H&M", callback_data="h_and_m")],
@@ -10,6 +12,6 @@ clothesBoard = [
     [InlineKeyboardButton(text="Zara", callback_data="zara")],
 ]
 
-clothesBoard.append(backButton)
+clothesBoard.append(backButton(CallBackNameSpace.Clothes))
 
 clothesBoardMarkup = InlineKeyboardMarkup(inline_keyboard=clothesBoard)

@@ -1,6 +1,8 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from .back import backButton
+from common.enums.namespaces import CallBackNameSpace
+
+from ..buttons.back import backButton
 
 electronicBoard = [
     [InlineKeyboardButton(text="Mvideo", callback_data="mvideo")],
@@ -10,6 +12,6 @@ electronicBoard = [
     [InlineKeyboardButton(text="Computer Universe", callback_data="computer_universe")],
 ]
 
-electronicBoard.append(backButton)
+electronicBoard.append(backButton(CallBackNameSpace.Electronics))
 
 electronicBoardMarkup = InlineKeyboardMarkup(inline_keyboard=electronicBoard)
