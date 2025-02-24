@@ -9,13 +9,13 @@ from common.enums.namespaces import CallBackNameSpace
 
 router = Router()
 
+__selectMessage = "Выберите карту Супермаркета"
+
 
 @router.callback_query(F.data == CallBackNameSpace.Market)
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
-    await ctx.message.edit_text(
-        text="Выберите карту Супермаркета", reply_markup=marketBoardMarkup
-    )
+    await ctx.message.edit_text(text=__selectMessage, reply_markup=marketBoardMarkup)
 
 
 @router.callback_query(F.data == f"{CallBackNameSpace.Market}_back")
@@ -31,12 +31,12 @@ async def _(ctx: types.CallbackQuery):
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(
-        text="Выберите карту Супермаркета",
+        text=__selectMessage,
         reply_markup=marketBoardMarkup,
     )
 
 
-@router.callback_query(F.data.in_(btn.callback_data for [btn] in marketBoard))
+@router.callback_query(F.data.in_(set(btn.callback_data for [btn] in marketBoard)))
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(
