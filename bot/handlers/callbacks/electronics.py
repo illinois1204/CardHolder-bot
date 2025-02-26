@@ -1,16 +1,16 @@
 # mypy: disable-error-code="union-attr"
 from aiogram import F, Router, types
 
+from bot.common.constants.app import NAMESPACE_SEPARATOR, CategorySlug
+from bot.common.constants.messages import BotMessages
 from bot.components.buttons.back import backButton
 from bot.components.keyboard.category import categoryBoardMarkup
 from bot.components.keyboard.electronics import electronicBoard, electronicBoardMarkup
-from common.constants.messages import BotMessages
-from common.enums.namespaces import CallBackNameSpace
 
 router = Router()
 
 
-@router.callback_query(F.data == CallBackNameSpace.Electronics)
+@router.callback_query(F.data == CategorySlug.Electronic)
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(
@@ -18,7 +18,7 @@ async def _(ctx: types.CallbackQuery):
     )
 
 
-@router.callback_query(F.data == f"{CallBackNameSpace.Electronics}_back")
+@router.callback_query(F.data == f"{CategorySlug.Electronic}{NAMESPACE_SEPARATOR}back")
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(
@@ -27,11 +27,14 @@ async def _(ctx: types.CallbackQuery):
     )
 
 
-@router.callback_query(F.data == f"{CallBackNameSpace.Electronics}_item_back")
+@router.callback_query(
+    F.data
+    == f"{CategorySlug.Electronic}{NAMESPACE_SEPARATOR}item{NAMESPACE_SEPARATOR}back"
+)
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(
-        text="Выберите карту магазина",
+        text=BotMessages.ShopSelect,
         reply_markup=electronicBoardMarkup,
     )
 
@@ -42,6 +45,8 @@ async def _(ctx: types.CallbackQuery):
     await ctx.message.edit_text(
         text="Тут штрихкод карты типо...",
         reply_markup=types.InlineKeyboardMarkup(
-            inline_keyboard=[backButton(f"{CallBackNameSpace.Electronics}_item")]
+            inline_keyboard=[
+                backButton(f"{CategorySlug.Electronic}{NAMESPACE_SEPARATOR}item")
+            ]
         ),
     )

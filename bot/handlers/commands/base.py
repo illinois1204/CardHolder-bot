@@ -1,8 +1,8 @@
 from aiogram import Router, types
 from aiogram.filters import Command, CommandStart
 
+from bot.common.constants import texts as BotText
 from bot.components.keyboard.hotpad import hotPadMarkup
-from common.constants import texts as BotText
 
 router = Router()
 

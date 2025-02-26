@@ -1,24 +1,24 @@
 # mypy: disable-error-code="union-attr"
 from aiogram import F, Router, types
 
+from bot.common.constants.app import NAMESPACE_SEPARATOR, CategorySlug
+from bot.common.constants.messages import BotMessages
 from bot.components.buttons.back import backButton
 from bot.components.keyboard.category import categoryBoardMarkup
 from bot.components.keyboard.market import marketBoard, marketBoardMarkup
-from common.constants.messages import BotMessages
-from common.enums.namespaces import CallBackNameSpace
 
 router = Router()
 
 __selectMessage = "Выберите карту Супермаркета"
 
 
-@router.callback_query(F.data == CallBackNameSpace.Market)
+@router.callback_query(F.data == CategorySlug.Market)
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(text=__selectMessage, reply_markup=marketBoardMarkup)
 
 
-@router.callback_query(F.data == f"{CallBackNameSpace.Market}_back")
+@router.callback_query(F.data == f"{CategorySlug.Market}{NAMESPACE_SEPARATOR}back")
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(
@@ -27,7 +27,9 @@ async def _(ctx: types.CallbackQuery):
     )
 
 
-@router.callback_query(F.data == f"{CallBackNameSpace.Market}_item_back")
+@router.callback_query(
+    F.data == f"{CategorySlug.Market}{NAMESPACE_SEPARATOR}item{NAMESPACE_SEPARATOR}back"
+)
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
     await ctx.message.edit_text(
@@ -42,6 +44,8 @@ async def _(ctx: types.CallbackQuery):
     await ctx.message.edit_text(
         text="Тут штрихкод карты типо...",
         reply_markup=types.InlineKeyboardMarkup(
-            inline_keyboard=[backButton(f"{CallBackNameSpace.Market}_item")]
+            inline_keyboard=[
+                backButton(f"{CategorySlug.Market}{NAMESPACE_SEPARATOR}item")
+            ]
         ),
     )

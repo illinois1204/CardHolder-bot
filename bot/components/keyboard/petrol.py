@@ -1,17 +1,25 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from common.enums.namespaces import CallBackNameSpace
+from bot.common.constants.app import NAMESPACE_SEPARATOR, CategorySlug
 
 from ..buttons.back import backButton
 
-prefix = CallBackNameSpace.Petrol
+petrolMap = dict(
+    lukoil="Lukoil",
+    gazprome="Gazprome",
+    tatneft="TATNeft",
+    octan="Octan",
+)
+
+petrolMapReverse = {v: k for k, v in petrolMap.items()}
+
+
+prefix = CategorySlug.Petrol
 petrolBoard = [
-    [InlineKeyboardButton(text="Lukoil", callback_data=f"{prefix}_lukoil")],
-    [InlineKeyboardButton(text="Gazprome", callback_data=f"{prefix}_gazprome")],
-    [InlineKeyboardButton(text="TATNeft", callback_data=f"{prefix}_tatneft")],
-    [InlineKeyboardButton(text="Octan", callback_data=f"{prefix}_octan")],
+    [InlineKeyboardButton(text=v, callback_data=f"{[prefix]}{NAMESPACE_SEPARATOR}{k}")]
+    for k, v in petrolMap.items()
 ]
 
-petrolBoard.append(backButton(CallBackNameSpace.Petrol))
+petrolBoard.append(backButton(CategorySlug.Petrol))
 
 petrolBoardMarkup = InlineKeyboardMarkup(inline_keyboard=petrolBoard)

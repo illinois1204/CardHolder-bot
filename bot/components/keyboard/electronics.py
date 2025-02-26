@@ -1,18 +1,26 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from common.enums.namespaces import CallBackNameSpace
+from bot.common.constants.app import NAMESPACE_SEPARATOR, CategorySlug
 
 from ..buttons.back import backButton
 
-prefix = CallBackNameSpace.Electronics
+electronicMap = dict(
+    mvideo="Mvideo",
+    dns="DNS",
+    e2e4="E2E4",
+    cu="Computer Universe",
+)
+electronicMap["2droida"] = "2Droida"
+
+electronicMapReverse = {v: k for k, v in electronicMap.items()}
+
+
+prefix = CategorySlug.Electronic
 electronicBoard = [
-    [InlineKeyboardButton(text="Mvideo", callback_data=f"{prefix}_mvideo")],
-    [InlineKeyboardButton(text="DNS", callback_data=f"{prefix}_dns")],
-    [InlineKeyboardButton(text="E2E4", callback_data=f"{prefix}_e2e4")],
-    [InlineKeyboardButton(text="2Droida", callback_data=f"{prefix}_2droida")],
-    [InlineKeyboardButton(text="Computer Universe", callback_data=f"{prefix}_cu")],
+    [InlineKeyboardButton(text=v, callback_data=f"{[prefix]}{NAMESPACE_SEPARATOR}{k}")]
+    for k, v in electronicMap.items()
 ]
 
-electronicBoard.append(backButton(CallBackNameSpace.Electronics))
+electronicBoard.append(backButton(CategorySlug.Electronic))
 
 electronicBoardMarkup = InlineKeyboardMarkup(inline_keyboard=electronicBoard)

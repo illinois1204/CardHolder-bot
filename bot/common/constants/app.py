@@ -1,9 +1,12 @@
 from enum import StrEnum
 
 
-class CallBackNameSpace(StrEnum):
+class CategorySlug(StrEnum):
     Market = "markets"
     Petrol = "petrol"
-    Electronics = "electronics"
+    Electronic = "electronics"
     Clothes = "clothes"
     Other = "other"
+
+
+NAMESPACE_SEPARATOR = "__"

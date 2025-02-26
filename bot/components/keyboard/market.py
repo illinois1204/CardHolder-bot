@@ -1,19 +1,27 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from common.enums.namespaces import CallBackNameSpace
+from bot.common.constants.app import NAMESPACE_SEPARATOR, CategorySlug
 
 from ..buttons.back import backButton
 
-prefix = CallBackNameSpace.Market
+marketMap = dict(
+    interspar="InterSpar",
+    lenta="Lenta",
+    metro="Metro C&C",
+    lidl="Lidl",
+    aucham="Auchan",
+    kaufland="Kaufland",
+)
+
+marketMapReverse = {v: k for k, v in marketMap.items()}
+
+
+prefix = CategorySlug.Market
 marketBoard = [
-    [InlineKeyboardButton(text="InterSpar", callback_data=f"{prefix}_interspar")],
-    [InlineKeyboardButton(text="Lenta", callback_data=f"{prefix}_lenta")],
-    [InlineKeyboardButton(text="Metro C&C", callback_data=f"{prefix}_metro")],
-    [InlineKeyboardButton(text="Lidl", callback_data=f"{prefix}_lidl")],
-    [InlineKeyboardButton(text="Auchan", callback_data=f"{prefix}_aucham")],
-    [InlineKeyboardButton(text="Kaufland", callback_data=f"{prefix}_kaufland")],
+    [InlineKeyboardButton(text=v, callback_data=f"{[prefix]}{NAMESPACE_SEPARATOR}{k}")]
+    for k, v in marketMap.items()
 ]
 
-marketBoard.append(backButton(CallBackNameSpace.Market))
+marketBoard.append(backButton(CategorySlug.Market))
 
 marketBoardMarkup = InlineKeyboardMarkup(inline_keyboard=marketBoard)

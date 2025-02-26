@@ -1,17 +1,17 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from common.enums.namespaces import CallBackNameSpace
+from bot.common.constants.app import CategorySlug
+
+categoryMap = dict()
+categoryMap[CategorySlug.Market] = "Супермаркеты"
+categoryMap[CategorySlug.Petrol] = "АЗС"
+categoryMap[CategorySlug.Electronic] = "Техника и электроника"
+categoryMap[CategorySlug.Clothes] = "Одежда"
+categoryMap[CategorySlug.Other] = "Другие"
+
+categoryMapReverse = {v: k for k, v in categoryMap.items()}
 
 categoryBoard = [
-    [InlineKeyboardButton(text="Супермаркеты", callback_data=CallBackNameSpace.Market)],
-    [InlineKeyboardButton(text="АЗС", callback_data=CallBackNameSpace.Petrol)],
-    [InlineKeyboardButton(text="Одежда", callback_data=CallBackNameSpace.Clothes)],
-    [
-        InlineKeyboardButton(
-            text="Техника и электроника", callback_data=CallBackNameSpace.Electronics
-        )
-    ],
-    [InlineKeyboardButton(text="Другие", callback_data=CallBackNameSpace.Other)],
+    [InlineKeyboardButton(text=v, callback_data=k)] for k, v in categoryMap.items()
 ]
-
 categoryBoardMarkup = InlineKeyboardMarkup(inline_keyboard=categoryBoard)

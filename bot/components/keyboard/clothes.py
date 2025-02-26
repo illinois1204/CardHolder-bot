@@ -1,18 +1,25 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from common.enums.namespaces import CallBackNameSpace
+from bot.common.constants.app import NAMESPACE_SEPARATOR, CategorySlug
 
 from ..buttons.back import backButton
 
-prefix = CallBackNameSpace.Clothes
+clothesMap = dict(
+    h_and_m="H&M",
+    jg="JG",
+    sport_master="Sport Master",
+    colins="Colins",
+    zara="Zara",
+)
+
+clothesMapReverse = {v: k for k, v in clothesMap.items()}
+
+prefix = CategorySlug.Clothes
 clothesBoard = [
-    [InlineKeyboardButton(text="H&M", callback_data=f"{prefix}_h_and_m")],
-    [InlineKeyboardButton(text="JG", callback_data=f"{prefix}_jg")],
-    [InlineKeyboardButton(text="Sport Master", callback_data=f"{prefix}_sport_master")],
-    [InlineKeyboardButton(text="Colins", callback_data=f"{prefix}_colins")],
-    [InlineKeyboardButton(text="Zara", callback_data=f"{prefix}_zara")],
+    [InlineKeyboardButton(text=v, callback_data=f"{[prefix]}{NAMESPACE_SEPARATOR}{k}")]
+    for k, v in clothesMap.items()
 ]
 
-clothesBoard.append(backButton(CallBackNameSpace.Clothes))
+clothesBoard.append(backButton(CategorySlug.Clothes))
 
 clothesBoardMarkup = InlineKeyboardMarkup(inline_keyboard=clothesBoard)
