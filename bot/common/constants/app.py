@@ -9,4 +9,4 @@ class CategorySlug(StrEnum):
     Other = "other"
 
 
-NAMESPACE_SEPARATOR = "__"
+NAMESPACE_SEPARATOR = ":"
