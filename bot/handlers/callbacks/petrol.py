@@ -1,11 +1,13 @@
 # mypy: disable-error-code="union-attr"
+import os
+
 from aiogram import F, Router, types
 
-from bot.common.constants.app import NAMESPACE_SEPARATOR, CategorySlug
+from bot.common.constants.app import ASSETS_PATH, NAMESPACE_SEPARATOR, CategorySlug
 from bot.common.constants.messages import BotMessages
 from bot.components.buttons.back import backButton
 from bot.components.keyboard.category import categoryBoardMarkup
-from bot.components.keyboard.petrol import petrolBoard, petrolBoardMarkup
+from bot.components.keyboard.petrol import petrolBoard, petrolBoardMarkup, petrolMap
 
 router = Router()
 
@@ -15,14 +17,16 @@ __selectMessage = "Выберите АЗС карту"
 @router.callback_query(F.data == CategorySlug.Petrol)
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
-    await ctx.message.edit_text(text=__selectMessage, reply_markup=petrolBoardMarkup)
+    await ctx.message.edit_caption(
+        caption=__selectMessage, reply_markup=petrolBoardMarkup
+    )
 
 
 @router.callback_query(F.data == f"{CategorySlug.Petrol}{NAMESPACE_SEPARATOR}back")
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
-    await ctx.message.edit_text(
-        text=BotMessages.CategorySelect,
+    await ctx.message.edit_caption(
+        caption=BotMessages.CategorySelect,
         reply_markup=categoryBoardMarkup,
     )
 
@@ -32,17 +36,24 @@ async def _(ctx: types.CallbackQuery):
 )
 async def _(ctx: types.CallbackQuery):
     await ctx.answer()
-    await ctx.message.edit_text(
-        text=__selectMessage,
+    await ctx.message.edit_media(
         reply_markup=petrolBoardMarkup,
+        media=types.InputMediaPhoto(
+            media=types.FSInputFile(f"{os.getcwd()}/{ASSETS_PATH}/scan-me.jpg"),
+            caption=__selectMessage,
+        ),
     )
 
 
 @router.callback_query(F.data.in_(set(btn.callback_data for [btn] in petrolBoard)))
 async def _(ctx: types.CallbackQuery):
+    item_key = ctx.data.split(NAMESPACE_SEPARATOR).pop()
     await ctx.answer()
-    await ctx.message.edit_text(
-        text="Тут штрихкод карты типо...",
+    await ctx.message.edit_media(
+        media=types.InputMediaPhoto(
+            media=types.FSInputFile(f"{os.getcwd()}/{ASSETS_PATH}/code.png"),
+            caption=petrolMap[item_key],
+        ),
         reply_markup=types.InlineKeyboardMarkup(
             inline_keyboard=[
                 backButton(f"{CategorySlug.Petrol}{NAMESPACE_SEPARATOR}item")

@@ -10,3 +10,5 @@ class CategorySlug(StrEnum):
 
 
 NAMESPACE_SEPARATOR = ":"
+
+ASSETS_PATH = "bot/components/assets"
