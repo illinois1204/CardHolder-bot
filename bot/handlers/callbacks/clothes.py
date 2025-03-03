@@ -5,7 +5,7 @@ from aiogram import F, Router, types
 
 from bot.common.constants.app import ASSETS_PATH, NAMESPACE_SEPARATOR, CategorySlug
 from bot.common.constants.messages import BotMessages
-from bot.components.buttons.back import backButton
+from bot.common.lambdas.show_card import findCardResult
 from bot.components.keyboard.category import categoryBoardMarkup
 from bot.components.keyboard.clothes import clothesBoard, clothesBoardMarkup, clothesMap
 
@@ -46,16 +46,4 @@ async def _(ctx: types.CallbackQuery):
 
 @router.callback_query(F.data.in_(set(btn.callback_data for [btn] in clothesBoard)))
 async def _(ctx: types.CallbackQuery):
-    item_key = ctx.data.split(NAMESPACE_SEPARATOR).pop()
-    await ctx.answer()
-    await ctx.message.edit_media(
-        media=types.InputMediaPhoto(
-            media=types.FSInputFile(f"{os.getcwd()}/{ASSETS_PATH}/code.png"),
-            caption=clothesMap[item_key],
-        ),
-        reply_markup=types.InlineKeyboardMarkup(
-            inline_keyboard=[
-                backButton(f"{CategorySlug.Clothes}{NAMESPACE_SEPARATOR}item")
-            ]
-        ),
-    )
+    await findCardResult(ctx, CategorySlug.Clothes, clothesMap)
