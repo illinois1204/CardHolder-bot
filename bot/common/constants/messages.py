@@ -7,3 +7,4 @@ class BotMessages(StrEnum):
     WriteYourShop = "Ок, напиши название магазина:"
     UnknownShop = "Сори, магазин не обнаружен :("
     EnterBarcode = "Теперь введи номер дисконтной карты (Barcode):"
+    CardNameExists = "Карта с таким названием уже существует. Проверьте список!"

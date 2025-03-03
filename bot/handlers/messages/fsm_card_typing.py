@@ -1,6 +1,7 @@
 from aiogram import F, Router, types
 from aiogram.fsm.context import FSMContext
 
+import bot.common.constants.texts as BotTexts
 from bot.common.lambdas.save_card import saveCard
 from bot.components.fsm.card import PutCard
 from bot.components.keyboard import hotpad
@@ -13,7 +14,13 @@ async def _(message: types.Message, state: FSMContext):
     data = await state.update_data(cardNumber=message.text)
     data["cardCode"] = message.text
 
-    await saveCard(message.from_user.id, data)
+    try:
+        await saveCard(message.from_user.id, data)
+    except Exception as e:
+        print(e)
+        await state.clear()
+        await message.answer(BotTexts.ErrorOperationAddCard)
+        return
 
     await state.clear()
     await message.answer(
