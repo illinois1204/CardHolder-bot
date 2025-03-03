@@ -17,7 +17,7 @@ electronicMapReverse = {v: k for k, v in electronicMap.items()}
 
 prefix = CategorySlug.Electronic
 electronicBoard = [
-    [InlineKeyboardButton(text=v, callback_data=f"{[prefix]}{NAMESPACE_SEPARATOR}{k}")]
+    [InlineKeyboardButton(text=v, callback_data=f"{prefix}{NAMESPACE_SEPARATOR}{k}")]
     for k, v in electronicMap.items()
 ]
 

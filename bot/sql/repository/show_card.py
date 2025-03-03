@@ -12,7 +12,7 @@ from bot.common.constants.app import (
 from bot.components.buttons.back import backButton
 
 
-async def findCardResult(ctx: types.CallbackQuery, slug: CategorySlug, slugMap: dict):
+async def findDefinedCard(ctx: types.CallbackQuery, slug: CategorySlug, slugMap: dict):
     item_key = ctx.data.split(NAMESPACE_SEPARATOR).pop()
 
     fileName = f"{ctx.from_user.id}_{slug}_{item_key}.jpeg"
@@ -30,5 +30,27 @@ async def findCardResult(ctx: types.CallbackQuery, slug: CategorySlug, slugMap: 
         media=types.InputMediaPhoto(media=mediaData, caption=captionText),
         reply_markup=types.InlineKeyboardMarkup(
             inline_keyboard=[backButton(f"{slug}{NAMESPACE_SEPARATOR}item")]
+        ),
+    )
+
+
+async def findAnyCard(ctx: types.CallbackQuery):
+    fileName = ctx.data.split(NAMESPACE_SEPARATOR).pop()
+    filePath = f"{STORAGE_PATH}/{SavePrefix.Any}/{fileName}.jpeg"
+
+    if os.path.exists(filePath):
+        captionText = None
+        mediaData = types.FSInputFile(filePath)
+    else:
+        captionText = "карта отсутствует"
+        mediaData = types.FSInputFile(f"{os.getcwd()}/{ASSETS_PATH}/404.png")
+
+    await ctx.answer()
+    await ctx.message.edit_media(
+        media=types.InputMediaPhoto(media=mediaData, caption=captionText),
+        reply_markup=types.InlineKeyboardMarkup(
+            inline_keyboard=[
+                backButton(f"{CategorySlug.Other}{NAMESPACE_SEPARATOR}item")
+            ]
         ),
     )

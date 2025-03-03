@@ -18,7 +18,7 @@ marketMapReverse = {v: k for k, v in marketMap.items()}
 
 prefix = CategorySlug.Market
 marketBoard = [
-    [InlineKeyboardButton(text=v, callback_data=f"{[prefix]}{NAMESPACE_SEPARATOR}{k}")]
+    [InlineKeyboardButton(text=v, callback_data=f"{prefix}{NAMESPACE_SEPARATOR}{k}")]
     for k, v in marketMap.items()
 ]
 

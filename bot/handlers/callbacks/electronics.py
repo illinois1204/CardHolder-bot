@@ -5,13 +5,13 @@ from aiogram import F, Router, types
 
 from bot.common.constants.app import ASSETS_PATH, NAMESPACE_SEPARATOR, CategorySlug
 from bot.common.constants.messages import BotMessages
-from bot.common.lambdas.show_card import findCardResult
 from bot.components.keyboard.category import categoryBoardMarkup
 from bot.components.keyboard.electronics import (
     electronicBoard,
     electronicBoardMarkup,
     electronicMap,
 )
+from bot.sql.repository.show_card import findDefinedCard
 
 router = Router()
 
@@ -50,4 +50,4 @@ async def _(ctx: types.CallbackQuery):
 
 @router.callback_query(F.data.in_(set(btn.callback_data for [btn] in electronicBoard)))
 async def _(ctx: types.CallbackQuery):
-    await findCardResult(ctx, CategorySlug.Electronic, electronicMap)
+    await findDefinedCard(ctx, CategorySlug.Electronic, electronicMap)

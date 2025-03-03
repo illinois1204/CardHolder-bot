@@ -16,7 +16,7 @@ petrolMapReverse = {v: k for k, v in petrolMap.items()}
 
 prefix = CategorySlug.Petrol
 petrolBoard = [
-    [InlineKeyboardButton(text=v, callback_data=f"{[prefix]}{NAMESPACE_SEPARATOR}{k}")]
+    [InlineKeyboardButton(text=v, callback_data=f"{prefix}{NAMESPACE_SEPARATOR}{k}")]
     for k, v in petrolMap.items()
 ]
 

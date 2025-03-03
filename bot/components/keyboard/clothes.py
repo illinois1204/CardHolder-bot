@@ -16,7 +16,7 @@ clothesMapReverse = {v: k for k, v in clothesMap.items()}
 
 prefix = CategorySlug.Clothes
 clothesBoard = [
-    [InlineKeyboardButton(text=v, callback_data=f"{[prefix]}{NAMESPACE_SEPARATOR}{k}")]
+    [InlineKeyboardButton(text=v, callback_data=f"{prefix}{NAMESPACE_SEPARATOR}{k}")]
     for k, v in clothesMap.items()
 ]
 

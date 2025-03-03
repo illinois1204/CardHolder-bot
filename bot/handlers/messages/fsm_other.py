@@ -2,9 +2,9 @@ from aiogram import F, Router, types
 from aiogram.fsm.context import FSMContext
 
 from bot.common.constants.messages import BotMessages
-from bot.common.lambdas.save_card import isExistCard
 from bot.components.fsm.card import PutCard, ShopInSection
 from bot.components.keyboard import hotpad
+from bot.sql.repository.save_card import isExistCard
 
 router = Router()
 

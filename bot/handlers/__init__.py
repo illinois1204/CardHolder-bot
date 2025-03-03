@@ -1,6 +1,6 @@
 from aiogram import Router
 
-from .callbacks import clothes, electronics, market, petrol
+from .callbacks import clothes, electronics, market, petrol, other
 from .commands import base, client
 from .messages import (
     fsm_add_card,
@@ -24,6 +24,7 @@ router.include_routers(
     petrol.router,
     clothes.router,
     electronics.router,
+    other.router,
     fsm_add_card.router,
     fsm_card_typing.router,
     fsm_market.router,
