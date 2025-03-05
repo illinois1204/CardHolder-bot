@@ -1,4 +1,4 @@
-# Install packages
+# Prerequirement
 #### Dependencies:
 ```sh
 pip install -r requirements.txt
@@ -6,6 +6,10 @@ pip install -r requirements.txt
 #### Dev-Dependencies:
 ```sh
 pip install -r requirements-dev.txt
+```
+#### Make storage directory:
+```sh
+mkdir -p storage/{any,defined}
 ```
 
 
@@ -30,3 +34,15 @@ python -B -m bot.main
     ```sh
     pymon root.py
     ```
+
+#### Docker run
+When start container with `docker run` set option:
+
+Token (required)
+```sh
+-e BOT_TOKEN="..."
+```
+Volume for persistent (optional)
+```sh
+-v host_path:/app/storage
+```
