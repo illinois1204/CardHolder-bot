@@ -11,17 +11,32 @@ from bot.common.constants.messages import BotMessages
 from bot.common.enums.hotpad import HotPadNotes
 from bot.components.fsm.card import PutCard
 from bot.components.keyboard.category import categoryBoardMarkup, categoryMap
+from bot.sql.repository.get_cards import getUserCards
 
 router = Router()
 
 
-@router.message(F.text == HotPadNotes["category"])
-@router.message(Command("category"))
+@router.message(F.text == HotPadNotes.category, default_state)
+@router.message(Command("category"), default_state)
 async def _(message: types.Message):
     await message.answer_photo(
         photo=types.FSInputFile(f"{os.getcwd()}/{ASSETS_PATH}/scan-me.jpg"),
         caption=BotMessages.CategorySelect,
         reply_markup=categoryBoardMarkup,
+    )
+
+
+@router.message(F.text == HotPadNotes.allCarts, default_state)
+@router.message(Command("list_cards"), default_state)
+async def _(message: types.Message):
+    shopList = getUserCards(message.from_user.id)
+
+    response = ""
+    for i, row in enumerate(shopList):
+        response += f"{i + 1}. {row.name}\n"
+
+    await message.answer(
+        f"Карты магазинов добавленные вручную:\n\n{response or "Отсутствуют!"}"
     )
 
 

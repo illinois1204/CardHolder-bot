@@ -27,4 +27,4 @@ async def globalCancel(message: types.Message, state: FSMContext):
 
 @endRouter.message()
 async def notFound(message):
-    await message.answer(text="404...")
+    await message.answer(text="Обработчик не найден...")
