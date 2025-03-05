@@ -5,4 +5,8 @@ COPY . .
 RUN pip install -r requirements.txt && \
     mkdir -p storage/any storage/defined
 
-CMD ["python", "-m", "bot.main"]
+SHELL ["/bin/sh", "-c"]
+CMD  mkdir -p \
+    storage/any \
+    storage/defined \
+    && python -m bot.main
