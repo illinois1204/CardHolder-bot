@@ -1,0 +1,13 @@
+.idea
+.vscode
+.env*
+.git*
+__pycache__
+.venv
+venv
+.mypy_cache
+README.md
+pyproject.toml
+requirements-dev.txt
+root.py
+storage
